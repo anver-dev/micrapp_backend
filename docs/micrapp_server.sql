@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 14-01-2022 a las 22:33:41
+-- Tiempo de generación: 15-01-2022 a las 03:35:37
 -- Versión del servidor: 10.4.17-MariaDB
 -- Versión de PHP: 8.0.1
 
@@ -45,7 +45,7 @@ CREATE TABLE `permiso` (
   `id_usuario` int(11) NOT NULL,
   `auth` varchar(50) NOT NULL,
   `id_nivel_acceso` int(11) NOT NULL,
-  `fecha_registro` date NOT NULL DEFAULT current_timestamp()
+  `fecha_registro` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -59,7 +59,7 @@ CREATE TABLE `rol` (
   `rol` varchar(50) NOT NULL,
   `descripcion` text NOT NULL,
   `id_usuario` int(11) NOT NULL,
-  `fecha_registro` date NOT NULL DEFAULT current_timestamp()
+  `fecha_registro` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -76,6 +76,27 @@ CREATE TABLE `rol_permiso` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `SequelizeMeta`
+--
+
+CREATE TABLE `SequelizeMeta` (
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `SequelizeMeta`
+--
+
+INSERT INTO `SequelizeMeta` (`name`) VALUES
+('20220115003047-create-usuario.js'),
+('20220115003058-create-nivel-acceso.js'),
+('20220115003238-create-rol.js'),
+('20220115003253-create-permiso.js'),
+('20220115003318-create-rol-permiso.js');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `usuario`
 --
 
@@ -88,8 +109,15 @@ CREATE TABLE `usuario` (
   `email` text NOT NULL,
   `llave_temporal` text NOT NULL,
   `id_rol` int(11) NOT NULL,
-  `fecha_registro` date NOT NULL DEFAULT current_timestamp()
+  `fecha_registro` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `usuario`
+--
+
+INSERT INTO `usuario` (`id_usuario`, `nombre`, `apellido_paterno`, `apellido_materno`, `contrasena`, `email`, `llave_temporal`, `id_rol`, `fecha_registro`) VALUES
+(1, 'Rosa', 'Toral', 'Maldonado', '1234', 'rosa28gato@gmail.com', '', 1, '2022-01-14 06:00:00');
 
 --
 -- Índices para tablas volcadas
@@ -121,6 +149,13 @@ ALTER TABLE `rol`
 ALTER TABLE `rol_permiso`
   ADD PRIMARY KEY (`id_rol`,`id_permiso`),
   ADD KEY `permiso_fk` (`id_permiso`);
+
+--
+-- Indices de la tabla `SequelizeMeta`
+--
+ALTER TABLE `SequelizeMeta`
+  ADD PRIMARY KEY (`name`),
+  ADD UNIQUE KEY `name` (`name`);
 
 --
 -- Indices de la tabla `usuario`
@@ -155,7 +190,7 @@ ALTER TABLE `rol`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Restricciones para tablas volcadas

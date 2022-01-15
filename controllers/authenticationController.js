@@ -1,7 +1,7 @@
 const authenticationService = require('../services/authenticationService');
 
-const handleLogin = (req, res) => {
-  const user = authenticationService.login(req.body);
+const handleLogin = async (req, res) => {
+  const user = await authenticationService.login(req.body);
 
   res.json(user);
 };
