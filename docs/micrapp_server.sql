@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 22-12-2021 a las 21:41:32
+-- Tiempo de generación: 14-01-2022 a las 22:33:41
 -- Versión del servidor: 10.4.17-MariaDB
 -- Versión de PHP: 8.0.1
 
@@ -112,7 +112,8 @@ ALTER TABLE `permiso`
 -- Indices de la tabla `rol`
 --
 ALTER TABLE `rol`
-  ADD PRIMARY KEY (`id_rol`);
+  ADD PRIMARY KEY (`id_rol`),
+  ADD KEY `rol_usuario_fk` (`id_usuario`);
 
 --
 -- Indices de la tabla `rol_permiso`
@@ -167,17 +168,17 @@ ALTER TABLE `permiso`
   ADD CONSTRAINT `nivelacceso_permiso_fk` FOREIGN KEY (`id_nivel_acceso`) REFERENCES `nivel_acceso` (`id_nivel_acceso`);
 
 --
+-- Filtros para la tabla `rol`
+--
+ALTER TABLE `rol`
+  ADD CONSTRAINT `rol_usuario_fk` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`);
+
+--
 -- Filtros para la tabla `rol_permiso`
 --
 ALTER TABLE `rol_permiso`
   ADD CONSTRAINT `permiso_fk` FOREIGN KEY (`id_permiso`) REFERENCES `permiso` (`id_permiso`),
   ADD CONSTRAINT `rol_fk` FOREIGN KEY (`id_rol`) REFERENCES `rol` (`id_rol`);
-
---
--- Filtros para la tabla `usuario`
---
-ALTER TABLE `usuario`
-  ADD CONSTRAINT `usuario_rol_fk` FOREIGN KEY (`id_rol`) REFERENCES `rol` (`id_rol`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
