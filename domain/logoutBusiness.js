@@ -1,17 +1,7 @@
-const usersDB = {
-  users: require('../dal/models/users.json'),
-  setUsers: function (data) { this.users = data }
-};
-
-const findByToken = (token) => {
-  return usersDB.users.find(person => person.llave_temporal === token);
-}
+const { usuario } = require('../datos/models');
 
 const logout = (token) => {
-  const otherUsers = usersDB.users.filter(person => person.llave_temporal !== token);
-  const modifiedUser = { ...currentUser, llave_temporal: '' };
-
-  usersDB.setUsers([...otherUsers, modifiedUser]);
-
-  return true;
+  return updatedUser = usuario.update({ llave_temporal: '' }, { where: { llave_temporal: token } });
 }
+
+module.exports = { logout };
