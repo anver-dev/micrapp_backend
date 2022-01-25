@@ -8,4 +8,8 @@ const login = (credentials) => {
   return userBusiness.login(credentials);
 };
 
-module.exports = { createNewUser, login };
+const getUserById = (id) => {
+  return userService.getUserById(id);
+}
+
+module.exports = { createNewUser, login, getUserById };

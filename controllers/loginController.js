@@ -1,4 +1,4 @@
-const userService = require('../services/authenticationService');
+const userService = require('../services/userService');
 
 const handleLogin = async (req, res) => {
   const {email, pwd} = req.body;
@@ -6,9 +6,12 @@ const handleLogin = async (req, res) => {
 
   const user = await userService.login(req.body);
 
+  //Crear el token y mandar de vuelta al cliente
+  const jwt = createJWT(register);
+
   if(user === null) return res.status(401).json('Usuario no encontrado');
 
-  res.json(user);
+  res.status(201).json({success: 'Bienvenido', user: user, token: jwt.token, expiresIn: jwt.expires});
 };
 
 module.exports = { handleLogin };

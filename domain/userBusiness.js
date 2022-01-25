@@ -1,4 +1,4 @@
-const { usuario } = require('../datos/models');
+const { usuario } = require('../data/models');
 
 const createNewUser = async (newUser) => {
   const duplicate = await usuario.findOne({ where: { email: newUser.email } });
@@ -15,10 +15,14 @@ const createNewUser = async (newUser) => {
 
 const login = (data) => {
   const user = usuario.findOne({ where: { email: data.email, contrasena: data.pwd } })
-  //Manejo de la contraseña encriptada
-  //Creación del token temporal
 
   return user;
 };
 
-module.exports = { createNewUser, login };
+const getUserById = (id) => {
+  const user = usuario.findOne({ where: { id_usuario: id } });
+
+  return user;
+}
+
+module.exports = { createNewUser, login, getUserById };

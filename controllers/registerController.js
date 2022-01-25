@@ -1,4 +1,5 @@
 const userService = require('../services/registerService');
+const { createJWT } = require('../lib/utils');
 
 //Aquí no va a llegar todo.
 const handleNewUser = async (req, res) => {
@@ -7,9 +8,12 @@ const handleNewUser = async (req, res) => {
 
   const register = await userService.createNewUser(req.body);
 
+  //Crear el token y mandar de vuelta al cliente
+  const jwt = createJWT(register);
+
   if (register !== null) return res.status(409).json('Cuenta de correo electrónico registrada'); //Conflict;
 
-  res.status(201).json({"success": 'Registro exitoso'});
+  res.status(201).json({success: 'Registro exitoso', user: register, token: jwt.token, expiresIn: jwt.expires});
 };
 
 module.exports = { handleNewUser };
