@@ -18,7 +18,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         onDelete: 'RESTRICT',
         references: {
-          model: 'usuario',
+          model: 'Usuario',
           key: 'id_usuario'
         }
       },

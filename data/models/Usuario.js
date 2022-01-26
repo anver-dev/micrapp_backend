@@ -3,20 +3,20 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class usuario extends Model {
+  class Usuario extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      usuario.hasOne(models.rol, {
+      Usuario.hasOne(models.Rol, {
         foreignKey: 'id_usuario', //Nombre de la llave foranea en la tabla Rol
         as: 'rol' //Nombre de la tabla de donde se saca la llave foranea
       });
     }
   }
-  usuario.init({
+  Usuario.init({
     id_usuario: {
       allowNull: false,
       autoIncrement: true,
@@ -35,9 +35,9 @@ module.exports = (sequelize, DataTypes) => {
     id_rol: DataTypes.INTEGER
   }, {
     sequelize,
-    modelName: 'usuario',
+    modelName: 'Usuario',
     tableName: 'usuario',
     timestamps: false
   });
-  return usuario;
+  return Usuario;
 };

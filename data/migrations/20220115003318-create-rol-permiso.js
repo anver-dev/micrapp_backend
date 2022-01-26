@@ -9,7 +9,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         onDelete: 'RESTRICT',
         references: {
-          model: 'rol',
+          model: 'Rol',
           key: 'id'
         }
       },
@@ -20,7 +20,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         onDelete: 'RESTRICT',
         references: {
-          model: 'permiso',
+          model: 'Permiso',
           key: 'id'
         }
       },

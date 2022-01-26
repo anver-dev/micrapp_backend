@@ -3,27 +3,33 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class nivel_acceso extends Model {
+  class Rol extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      nivel_acceso.hasMany(models.permiso, {
-        foreignKey: "id_nivel_acceso",
+      Rol.belongsTo(models.Usuario, {
         onDelete: 'RESTRICT',
         onUpdate: 'RESTRICT'
       });
+      Rol.belongsToMany(models.Permiso, {
+        through: "rol_permiso",
+        as: "permiso",
+        foreignKey: "id_rol"
+      });
     }
   }
-  nivel_acceso.init({
-    descripcion: DataTypes.STRING
+  Rol.init({
+    rol: DataTypes.STRING,
+    descripcion: DataTypes.STRING,
+    id_usuario: DataTypes.INTEGER
   }, {
     sequelize,
-    modelName: 'nivel_acceso',
-    tableName: 'nivel_acceso',
+    modelName: 'Rol',
+    tableName: 'rol',
     timestamps: false
   });
-  return nivel_acceso;
+  return Rol;
 };

@@ -1,4 +1,9 @@
 //Configuración de autenticación con passport
+/*
+  Aquí se especifica lo que se debe hacer cuando un usuario intenta ingresar a una ruta protegida
+  Es decir, se especifica lo que va a hacer la llamada a la función passport.authenticate()
+  cuando se llama en las rutas
+*/
 
 const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
