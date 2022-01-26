@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      nivel_acceso.hasOne(models.permiso, {
+      nivel_acceso.hasMany(models.permiso, {
         foreignKey: "id_nivel_acceso",
         onDelete: 'RESTRICT',
         onUpdate: 'RESTRICT'

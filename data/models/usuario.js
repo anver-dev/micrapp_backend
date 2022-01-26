@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      usuario.hasMany(models.rol, {
+      usuario.hasOne(models.rol, {
         foreignKey: 'id_usuario', //Nombre de la llave foranea en la tabla Rol
         as: 'rol' //Nombre de la tabla de donde se saca la llave foranea
       });
