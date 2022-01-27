@@ -12,7 +12,8 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Rol.belongsTo(models.Usuario, {
         onDelete: 'RESTRICT',
-        onUpdate: 'RESTRICT'
+        onUpdate: 'RESTRICT',
+        foreignKey: 'id_usuario'
       });
       Rol.belongsToMany(models.Permiso, {
         through: "rol_permiso",
@@ -22,6 +23,12 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Rol.init({
+    id_rol: {
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+      type: DataTypes.INTEGER
+    },
     rol: DataTypes.STRING,
     descripcion: DataTypes.STRING,
     id_usuario: DataTypes.INTEGER

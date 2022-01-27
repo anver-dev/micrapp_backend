@@ -31,8 +31,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     contrasena: DataTypes.STRING,
     email: DataTypes.STRING,
-    llave_temporal: DataTypes.STRING,
-    id_rol: DataTypes.INTEGER
+    llave_temporal: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Usuario',

@@ -12,7 +12,8 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Permiso.belongsTo(models.Nivel_acceso, {
         onDelete: 'RESTRICT',
-        onUpdate: 'RESTRICT'
+        onUpdate: 'RESTRICT',
+        foreignKey: 'id_nivel_acceso'
       });
       Permiso.belongsToMany(models.Rol, {
         through: "rol_permiso",
@@ -22,9 +23,14 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Permiso.init({
+    id_permiso: {
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+      type: DataTypes.INTEGER
+    },
     permiso: DataTypes.STRING,
     descripcion: DataTypes.STRING,
-    id_usuario: DataTypes.INTEGER,
     auth: DataTypes.STRING,
     id_nivel_acceso: DataTypes.INTEGER
   }, {

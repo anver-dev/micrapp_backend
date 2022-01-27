@@ -162,7 +162,6 @@ ALTER TABLE `SequelizeMeta`
 --
 ALTER TABLE `usuario`
   ADD PRIMARY KEY (`id_usuario`),
-  ADD KEY `usuario_rol_fk` (`id_rol`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas

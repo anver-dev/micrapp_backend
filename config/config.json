@@ -9,7 +9,7 @@
   "test": {
     "username": "root",
     "password": null,
-    "database": "micrapp_server",
+    "database": "micrapp_server_tests",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
