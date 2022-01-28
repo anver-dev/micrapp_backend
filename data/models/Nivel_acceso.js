@@ -3,21 +3,27 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class nivel_acceso extends Model {
+  class Nivel_acceso extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      nivel_acceso.hasMany(models.Permiso, {
+      Nivel_acceso.hasMany(models.Permiso, {
         foreignKey: "id_nivel_acceso",
         onDelete: 'RESTRICT',
         onUpdate: 'RESTRICT'
       });
     }
   }
-  nivel_acceso.init({
+  Nivel_acceso.init({
+    id_nivel_acceso: {
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+      type: DataTypes.INTEGER
+    },
     descripcion: DataTypes.STRING
   }, {
     sequelize,
@@ -25,5 +31,5 @@ module.exports = (sequelize, DataTypes) => {
     tableName: 'nivel_acceso',
     timestamps: false
   });
-  return nivel_acceso;
+  return Nivel_acceso;
 };
