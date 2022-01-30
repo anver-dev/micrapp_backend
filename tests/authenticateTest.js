@@ -1,6 +1,5 @@
 const auth = require('../services/userService');
 //const auth = require('../domain/userBusiness');
-const { Nivel_acceso } = require('../data/models');
 
 const test = async () => {
   const log = await auth.login({email: 'rosa28gato@gmail.com', pwd: '1234'});

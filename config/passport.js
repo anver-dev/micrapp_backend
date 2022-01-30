@@ -21,7 +21,7 @@ const options = {
 //Función anónima para configurar la autenticación con passport
 module.exports = (passport) => {
   // El payload del token es pasado en la función de verificación
-  passport.use(new JwtStrategy(options, (jwt_payload, done) => {
+  passport.use(new JwtStrategy(options, async (jwt_payload, done) => {
     console.log(jwt_payload);
 
     const id = jwt_payload.sub;

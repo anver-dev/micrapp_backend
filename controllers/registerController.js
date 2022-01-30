@@ -1,4 +1,4 @@
-const userService = require('../services/registerService');
+const userService = require('../services/userService');
 const { createJWT } = require('../lib/utils');
 
 //Aquí no va a llegar todo.
