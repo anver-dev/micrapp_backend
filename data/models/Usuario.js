@@ -23,15 +23,19 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       type: DataTypes.INTEGER
     },
-    nombre: DataTypes.STRING,
-    apellido_paterno: DataTypes.STRING,
+    nombre: DataTypes.TEXT,
+    apellido_paterno: DataTypes.TEXT,
     apellido_materno: {
       allowNull: true,
-      type: DataTypes.STRING
+      type: DataTypes.TEXT
     },
-    contrasena: DataTypes.STRING,
-    email: DataTypes.STRING,
-    llave_temporal: DataTypes.STRING
+    contrasena: DataTypes.TEXT,
+    email: DataTypes.TEXT,
+    llave_temporal: DataTypes.TEXT,
+    fecha_registro: {
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW
+    }
   }, {
     sequelize,
     modelName: 'Usuario',

@@ -8,8 +8,6 @@ const test = async () => {
     apellido_materno: null,
     email: "anita@gmail.com",
     contrasena: "21222324",
-    llave_temporal: "",
-    id_rol: 1
   });
   console.log('resultado del log:');
   console.log(log);

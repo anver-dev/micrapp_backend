@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 15-01-2022 a las 03:35:37
+-- Tiempo de generación: 30-01-2022 a las 22:27:24
 -- Versión del servidor: 10.4.17-MariaDB
 -- Versión de PHP: 8.0.1
 
@@ -32,6 +32,17 @@ CREATE TABLE `nivel_acceso` (
   `descripcion` enum('Acceso completo','Crear reportes','Ver reportes','Pedir ayuda','Brindar ayuda') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `nivel_acceso`
+--
+
+INSERT INTO `nivel_acceso` (`id_nivel_acceso`, `descripcion`) VALUES
+(1, 'Acceso completo'),
+(2, 'Crear reportes'),
+(3, 'Ver reportes'),
+(4, 'Pedir ayuda'),
+(5, 'Brindar ayuda');
+
 -- --------------------------------------------------------
 
 --
@@ -42,7 +53,6 @@ CREATE TABLE `permiso` (
   `id_permiso` int(11) NOT NULL,
   `permiso` varchar(50) NOT NULL,
   `descripcion` text NOT NULL,
-  `id_usuario` int(11) NOT NULL,
   `auth` varchar(50) NOT NULL,
   `id_nivel_acceso` int(11) NOT NULL,
   `fecha_registro` timestamp NOT NULL DEFAULT current_timestamp()
@@ -108,16 +118,8 @@ CREATE TABLE `usuario` (
   `contrasena` text NOT NULL,
   `email` text NOT NULL,
   `llave_temporal` text NOT NULL,
-  `id_rol` int(11) NOT NULL,
   `fecha_registro` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `usuario`
---
-
-INSERT INTO `usuario` (`id_usuario`, `nombre`, `apellido_paterno`, `apellido_materno`, `contrasena`, `email`, `llave_temporal`, `id_rol`, `fecha_registro`) VALUES
-(1, 'Rosa', 'Toral', 'Maldonado', '1234', 'rosa28gato@gmail.com', '', 1, '2022-01-14 06:00:00');
 
 --
 -- Índices para tablas volcadas
@@ -161,7 +163,7 @@ ALTER TABLE `SequelizeMeta`
 -- Indices de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  ADD PRIMARY KEY (`id_usuario`),
+  ADD PRIMARY KEY (`id_usuario`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -171,7 +173,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `nivel_acceso`
 --
 ALTER TABLE `nivel_acceso`
-  MODIFY `id_nivel_acceso` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_nivel_acceso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `permiso`
@@ -189,7 +191,7 @@ ALTER TABLE `rol`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Restricciones para tablas volcadas

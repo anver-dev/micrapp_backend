@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       type: DataTypes.INTEGER
     },
-    descripcion: DataTypes.STRING
+    descripcion: DataTypes.ENUM('Acceso completo', 'Crear reportes', 'Ver reportes', 'Pedir ayuda', 'Brindar ayuda')
   }, {
     sequelize,
     modelName: 'Nivel_acceso',

@@ -9,7 +9,7 @@ const login = (credentials) => {
 };
 
 const getUserById = (id) => {
-  return userService.getUserById(id);
+  return userBusiness.getUserById(id);
 }
 
 module.exports = { createNewUser, login, getUserById };

@@ -30,8 +30,12 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER
     },
     rol: DataTypes.STRING,
-    descripcion: DataTypes.STRING,
-    id_usuario: DataTypes.INTEGER
+    descripcion: DataTypes.TEXT,
+    id_usuario: DataTypes.INTEGER,
+    fecha_registro: {
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW
+    }
   }, {
     sequelize,
     modelName: 'Rol',

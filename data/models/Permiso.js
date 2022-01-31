@@ -30,9 +30,13 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER
     },
     permiso: DataTypes.STRING,
-    descripcion: DataTypes.STRING,
+    descripcion: DataTypes.TEXT,
     auth: DataTypes.STRING,
-    id_nivel_acceso: DataTypes.INTEGER
+    id_nivel_acceso: DataTypes.INTEGER,
+    fecha_registro: {
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW
+    }
   }, {
     sequelize,
     modelName: 'Permiso',

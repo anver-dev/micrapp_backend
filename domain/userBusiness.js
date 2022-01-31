@@ -1,7 +1,9 @@
 const { Usuario } = require('../data/models');
 
 const createNewUser = async (newUser) => {
-  const duplicate = await Usuario.findOne({ where: { email: newUser.email } });
+  const duplicate = await Usuario.findOne({
+    where: { email: newUser.email }
+  });
   if (duplicate) throw new Error('Conflict: Duplicated data'); //conflict
 
   newUser = Usuario.build({
@@ -9,12 +11,18 @@ const createNewUser = async (newUser) => {
     llave_temporal: ""
   });
 
-  return Usuario.save();
+  return newUser.save();
 
 };
 
 const login = (data) => {
-  const user = Usuario.findOne({ where: { email: data.email, contrasena: data.pwd } })
+  const user = Usuario.findOne({
+    where: { email: data.email, contrasena: data.pwd },
+    include: {
+      association: "rol",
+      include:{ association: "permiso" }
+    }
+  });
 
   return user;
 };
@@ -23,6 +31,7 @@ const getUserById = (id) => {
   const user = Usuario.findOne({ where: { id_usuario: id } });
 
   return user;
-}
+};
+
 
 module.exports = { createNewUser, login, getUserById };
