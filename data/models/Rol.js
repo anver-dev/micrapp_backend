@@ -10,10 +10,9 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Rol.belongsTo(models.Usuario, {
-        onDelete: 'RESTRICT',
-        onUpdate: 'RESTRICT',
-        foreignKey: 'id_usuario'
+      Rol.hasOne(models.Usuario, {
+        foreignKey: 'id_rol', //Nombre de la llave foranea en la tabla usuario
+        as: 'usuario' //Nombre de la tabla de donde se saca la llave foranea (nombre de la asociación)
       });
       Rol.belongsToMany(models.Permiso, {
         through: "Rol_permiso",
@@ -31,7 +30,6 @@ module.exports = (sequelize, DataTypes) => {
     },
     rol: DataTypes.STRING,
     descripcion: DataTypes.TEXT,
-    id_usuario: DataTypes.INTEGER,
     fecha_registro: {
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW

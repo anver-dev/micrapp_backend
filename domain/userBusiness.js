@@ -20,7 +20,10 @@ const login = (data) => {
     where: { email: data.email, contrasena: data.pwd },
     include: {
       association: "rol",
-      include:{ association: "permiso" }
+      include:{
+        association: "permiso",
+        include: { association: "nivel_acceso" }
+      }
     }
   });
 

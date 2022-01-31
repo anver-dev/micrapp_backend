@@ -10,9 +10,11 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Usuario.hasOne(models.Rol, {
-        foreignKey: 'id_usuario', //Nombre de la llave foranea en la tabla Rol
-        as: 'rol' //Nombre de la tabla de donde se saca la llave foranea
+      Usuario.belongsTo(models.Rol, {
+        onDelete: 'RESTRICT',
+        onUpdate: 'RESTRICT',
+        foreignKey: 'id_rol',
+        as: 'rol' //nombre de la asociación. Útil para cuando se requiere sacar datos con un sólo query, se llama a la asociación que existe entre ellos
       });
     }
   }
@@ -31,6 +33,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     contrasena: DataTypes.TEXT,
     email: DataTypes.TEXT,
+    id_rol: DataTypes.INTEGER,
     llave_temporal: DataTypes.TEXT,
     fecha_registro: {
       type: DataTypes.DATE,

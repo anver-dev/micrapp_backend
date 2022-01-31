@@ -13,7 +13,8 @@ module.exports = (sequelize, DataTypes) => {
       Permiso.belongsTo(models.Nivel_acceso, {
         onDelete: 'RESTRICT',
         onUpdate: 'RESTRICT',
-        foreignKey: 'id_nivel_acceso'
+        foreignKey: 'id_nivel_acceso',
+        as: 'nivel_acceso'
       });
       Permiso.belongsToMany(models.Rol, {
         through: "Rol_permiso",
