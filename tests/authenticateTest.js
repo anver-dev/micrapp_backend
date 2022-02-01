@@ -2,15 +2,17 @@ const auth = require('../services/userService');
 //const auth = require('../domain/userBusiness');
 
 const test = async () => {
-  const log = await auth.login({email: 'anita@gmail.com', pwd: '1234'});
-  //console.log(log.toJSON());
+  const log = await auth.login({email: 'pamela@gmail.com'});
+  console.log(log.toJSON());
+  const isValid = log.authenticate('1234');
+
+  console.log("Valor de la variable isValid: " + isValid);
+
   const rol = await log.getRol();
-  //console.log(rol.toJSON());
+  console.log(rol.toJSON());
   const permisos = log.toJSON().rol.permiso;
 
   permisos.forEach((permiso) => console.log(permiso));
-  //console.log(permiso);
-  //console.log(nivel.toJSON());
 
   /*
   Esta parte se usa cuando no se especifa en un sólo query la información que se requiere sacar

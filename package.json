@@ -27,7 +27,8 @@
     "mysql2": "^2.3.3",
     "passport": "^0.5.2",
     "passport-jwt": "^4.0.0",
-    "sequelize": "^6.12.5"
+    "sequelize": "^6.12.5",
+    "sequelize-bcrypt": "^1.1.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"

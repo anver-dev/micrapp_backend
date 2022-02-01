@@ -8,7 +8,7 @@ const createNewUser = async (newUser) => {
 
   newUser = Usuario.build({
     ...newUser,
-    llave_temporal: ""
+    llave_temporal: "llavetemporal" + newUser.nombre
   });
 
   return newUser.save();
@@ -17,7 +17,7 @@ const createNewUser = async (newUser) => {
 
 const login = (data) => {
   const user = Usuario.findOne({
-    where: { email: data.email, contrasena: data.pwd },
+    where: { email: data.email },
     include: {
       association: "rol",
       include:{

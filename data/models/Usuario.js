@@ -2,6 +2,8 @@
 const {
   Model
 } = require('sequelize');
+const useBcrypt = require('sequelize-bcrypt');
+
 module.exports = (sequelize, DataTypes) => {
   class Usuario extends Model {
     /**
@@ -25,19 +27,32 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       type: DataTypes.INTEGER
     },
-    nombre: DataTypes.TEXT,
-    apellido_paterno: DataTypes.TEXT,
-    apellido_materno: {
-      allowNull: true,
-      type: DataTypes.TEXT
+    nombre: {
+      type: DataTypes.TEXT,
+      allowNull: false,
     },
-    contrasena: DataTypes.TEXT,
-    email: DataTypes.TEXT,
-    id_rol: DataTypes.INTEGER,
+    apellido_paterno: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+    },
+    apellido_materno: DataTypes.TEXT,
+    contrasena: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+    },
+    email: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+    },
+    id_rol: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
     llave_temporal: DataTypes.TEXT,
     fecha_registro: {
       type: DataTypes.DATE,
-      defaultValue: DataTypes.NOW
+      defaultValue: DataTypes.NOW,
+      allowNull: false
     }
   }, {
     sequelize,
@@ -45,5 +60,13 @@ module.exports = (sequelize, DataTypes) => {
     tableName: 'usuario',
     timestamps: false
   });
+
+  //Encriptado y validación de la contraseña
+  useBcrypt(Usuario, {
+    field: 'contrasena',
+    rounds: 12,
+    compare: 'authenticate',
+  });
+
   return Usuario;
 };

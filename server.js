@@ -23,6 +23,6 @@ app.route('/logout', require('./routes/api/logout'));
 app.route('/protected-route', require('./routes/api/refresh'));
 
 app.listen(PORT, async () => {
-  await sequelize.sync({ force: true }); //Si está en true, rehace las tablas
+  await sequelize.sync({ force: true }); //Si está en true, rehace las tablas. Si está en false y no hay tablas, las hace de todos modos
   console.log(`Application running on port: ${PORT}`);
 });

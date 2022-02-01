@@ -24,7 +24,10 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       type: DataTypes.INTEGER
     },
-    descripcion: DataTypes.ENUM('Acceso completo', 'Crear reportes', 'Ver reportes', 'Pedir ayuda', 'Brindar ayuda')
+    descripcion: {
+      type: DataTypes.ENUM('Acceso completo', 'Crear reportes', 'Ver reportes', 'Pedir ayuda', 'Brindar ayuda'),
+      allowNull: false
+    }
   }, {
     sequelize,
     modelName: 'Nivel_acceso',

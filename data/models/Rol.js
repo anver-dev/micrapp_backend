@@ -28,11 +28,15 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       type: DataTypes.INTEGER
     },
-    rol: DataTypes.STRING,
+    rol: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     descripcion: DataTypes.TEXT,
     fecha_registro: {
       type: DataTypes.DATE,
-      defaultValue: DataTypes.NOW
+      defaultValue: DataTypes.NOW,
+      allowNull: false
     }
   }, {
     sequelize,

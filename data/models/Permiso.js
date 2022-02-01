@@ -30,13 +30,23 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       type: DataTypes.INTEGER
     },
-    permiso: DataTypes.STRING,
+    permiso: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     descripcion: DataTypes.TEXT,
-    auth: DataTypes.STRING,
-    id_nivel_acceso: DataTypes.INTEGER,
+    auth: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    id_nivel_acceso: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
     fecha_registro: {
       type: DataTypes.DATE,
-      defaultValue: DataTypes.NOW
+      defaultValue: DataTypes.NOW,
+      allowNull: false
     }
   }, {
     sequelize,

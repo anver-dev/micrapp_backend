@@ -14,8 +14,14 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Rol_permiso.init({
-    id_rol: DataTypes.INTEGER,
-    id_permiso: DataTypes.INTEGER
+    id_rol: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    id_permiso: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    }
   }, {
     sequelize,
     modelName: 'Rol_permiso',

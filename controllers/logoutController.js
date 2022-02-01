@@ -1,5 +1,9 @@
 const logoutService = require('../services/logoutService');
 
+
+//Se debe de eliminar el token para que no se pueda ingresar otra vez a la cuenta.
+//Esta será importante porque sea cómo sea que se haga la utenticación del token (por medio de un hash o por medio de la BD)
+//Se debe eliminar de todos modos el token de la cookie o del localstorage
 const handleLogout = (req, res) => {
   const token = 'llavetemporalRosa'; //De prueba
   const logout = logoutService.logout(token);
