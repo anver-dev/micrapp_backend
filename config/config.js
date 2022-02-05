@@ -12,7 +12,7 @@ module.exports = {
   "test": {
     "username": process.env.DB_USERNAME_TEST || "root",
     "password": process.env.DB_PASSWORD_TEST || "",
-    "database": process.env.DB_DATABASE_TEST || "micrapp_server",
+    "database": process.env.DB_DATABASE_TEST || "micrapp_server_tests",
     "host": process.env.DB_HOST_TEST || "127.0.0.1",
     "dialect": "mysql",
     logging: false

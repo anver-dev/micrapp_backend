@@ -1,2 +1,4 @@
-node_modules
 .env
+node_modules
+rsa_pub.pem
+rsa_priv.pem

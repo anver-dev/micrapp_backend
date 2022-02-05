@@ -1,4 +1,7 @@
 .env
-docs
 .gitignore
-node_modules
+docs/
+node_modules/
+tests/
+rsa_pub.pem
+rsa_priv.pem

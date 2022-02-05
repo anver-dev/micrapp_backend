@@ -7,10 +7,13 @@
 
 const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
+const path = require('path');
+const fs = require('fs');
 
 const userService = require('../services/userService');
 
-const PUB_KEY = 'alguna llave rsa';
+const pathToKey = path.join(__dirname, '..', 'rsa_pub.pem');
+const PUB_KEY = fs.readFileSync(pathToKey, 'utf8');
 
 const options = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
