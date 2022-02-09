@@ -3,10 +3,10 @@ const register = require('../services/userService');
 
 const test = async () => {
   const log = await register.createNewUser({
-    nombre: "Mario",
-    apellido_paterno: "Secundario",
+    nombre: "Carol",
+    apellido_paterno: "Lima",
     apellido_materno: null,
-    email: "mario@gmail.com",
+    email: "carol@gmail.com",
     contrasena: "1234",
     id_rol: 4
   });

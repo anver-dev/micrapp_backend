@@ -1,7 +1,10 @@
-const auth = require('../services/userService');
-//const auth = require('../domain/userBusiness');
+//const auth = require('../services/userService');
+const auth = require('../domain/userBusiness');
 
 const test = async () => {
+  const log = await auth.getUserById(1);
+  console.log(log);
+  /*
   const log = await auth.login({email: 'pamela@gmail.com'});
   console.log(log.toJSON());
   const isValid = log.authenticate('1234');

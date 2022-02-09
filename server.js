@@ -14,7 +14,7 @@ app.use(express.urlencoded({ extended: true }));
 require('./config/passport')(passport);
 app.use(passport.initialize());
 
-//app.use('/', (req, res) => res.json({msg: "pagina principal"})); //Página de inicio
+app.get('/', (req, res) => res.json({msg: "pagina principal"})); //Página de inicio
 
 app.use('/register', require('./routes/api/register'));
 app.use('/login', require('./routes/api/authentication'));

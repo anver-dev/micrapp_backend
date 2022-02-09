@@ -4,15 +4,15 @@ const { createJWT } = require('../lib/utils');
 //Aquí no va a llegar todo.
 const handleNewUser = async (req, res) => {
   //nombre, apellido_paterno, apellido_materno, email, pwd, rol
-  const {nombre, apellido_paterno, email, pwd} = newUser;
-  if (!nombre || !apellido_paterno || !email || !pwd) return res.status(500).json({msg: 'Debe llenar, al menos, los campos marcados con una * '});
+  const {nombre, apellido_paterno, email, contrasena} = req.body;
+  if (!nombre || !apellido_paterno || !email || !contrasena) return res.status(500).json({msg: 'Debe llenar, al menos, los campos marcados con una * '});
 
   const register = await userService.createNewUser(req.body);
 
+  if (!register) return res.status(409).json({msg: 'Esta cuenta de correo ya está registrada'}); //Conflict;
+
   //Crear el token y mandar de vuelta al cliente
   const jwt = createJWT(register);
-
-  if (register !== null) return res.status(409).json({msg: 'Esta cuenta de correo ya está registrada'}); //Conflict;
 
   res.status(201).json({success: 'Registro exitoso', user: register, token: jwt.token, expiresIn: jwt.expires});
 };

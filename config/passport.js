@@ -25,6 +25,7 @@ const options = {
 module.exports = (passport) => {
   // El payload del token es pasado en la función de verificación
   passport.use(new JwtStrategy(options, async (jwt_payload, done) => {
+    console.log("Contenido del payload para autorización de los usuarios. En config/passport.js")
     console.log(jwt_payload);
 
     const id = jwt_payload.sub;
@@ -33,7 +34,7 @@ module.exports = (passport) => {
       const user = await userService.getUserById(id);
       if (!user) return done(null, false);
 
-      return (null, user);
+      return done(null, user);
     } catch (err) {
       return done(err, false);
     }

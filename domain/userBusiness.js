@@ -4,7 +4,7 @@ const createNewUser = async (newUser) => {
   const duplicate = await Usuario.findOne({
     where: { email: newUser.email }
   });
-  if (duplicate) throw new Error('Conflict: Duplicated data'); //conflict
+  if (duplicate) return null;
 
   newUser = Usuario.build({
     ...newUser,
