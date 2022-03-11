@@ -8,7 +8,7 @@ const handleNewUser = async (req, res) => {
   if (!nombre || !apellido_paterno || !email || !contrasena) return res.status(500).json({msg: 'Debe llenar, al menos, los campos marcados con una * '});
 
   const register = await userService.createNewUser(req.body);
-
+  console.log('prueba');
   if (!register) return res.status(409).json({msg: 'Esta cuenta de correo ya está registrada'}); //Conflict;
 
   //Crear el token y mandar de vuelta al cliente
