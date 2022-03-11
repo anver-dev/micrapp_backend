@@ -1,0 +1,34 @@
+version: '1'
+services:
+  micrapp_backend:
+      build: .
+      command: npm run start
+      image: micrapp_backend:DEV
+      container_name: micrapp_test
+      ports:
+        - 3500:3500
+      tty: true
+      stdin_open: true
+      depends_on:
+      - mysql
+      environment:
+        DB_USERNAME: admin
+        DB_PASSWORD: 4dmin1!
+        DB_DATABASE: micrapp_server_test
+        DB_HOST: micrapp_db
+        NODE_ENV: test
+      restart: on-failure
+      
+  micrapp_db:
+    image: mysql:latest
+    volumes:
+      - "./sql-scripts/micrapp_server.sql:/docker-entrypoint-initdb.d/1.sql"
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: micrapp4dmin1!
+      MYSQL_DATABASE: micrapp_server_test
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: 4dmin1!
+  

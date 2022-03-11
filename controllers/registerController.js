@@ -1,29 +1,20 @@
-const usersDB = {
-  users: require('../model/users.json'),
-  setUsers: function (data) { this.users = data }
-};
+const userService = require('../services/userService');
+const { createJWT } = require('../lib/utils');
 
 //Aquí no va a llegar todo.
-const handleNewUser = (req, res) => {
-  const {name, middleName, lastName, email, pwd} = req.body;
-  if (!email || !pwd) return res.status(500).json('Debe llenar, al menos, el campo email');
+const handleNewUser = async (req, res) => {
+  //nombre, apellido_paterno, apellido_materno, email, pwd, rol
+  const {nombre, apellido_paterno, email, contrasena} = req.body;
+  if (!nombre || !apellido_paterno || !email || !contrasena) return res.status(500).json({msg: 'Debe llenar, al menos, los campos marcados con una * '});
 
-  const duplicate = usersDB.users.filter(person => person.email === email);
-  if (duplicate) return res.sendStatus(409); //conflict
+  const register = await userService.createNewUser(req.body);
+  console.log('prueba');
+  if (!register) return res.status(409).json({msg: 'Esta cuenta de correo ya está registrada'}); //Conflict;
 
-  const newUser = {
-    "id": usersDB.users.length+1 || 1,
-    "nombre": name,
-    "apellido_paterno": lastName,
-    "apellido_materno": middleName,
-    "email": email,
-    "contrasena": pwd,
-    "llave_temporal": ""
-  };
+  //Crear el token y mandar de vuelta al cliente
+  const jwt = createJWT(register);
 
-  usersDB.setUsers([...usersDB.users, newUser]);
-
-  res.status(201).json({"success": 'Registro exitoso'});
+  res.status(201).json({success: 'Registro exitoso', user: register, token: jwt.token, expiresIn: jwt.expires});
 };
 
 module.exports = { handleNewUser };

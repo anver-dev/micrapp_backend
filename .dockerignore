@@ -1,0 +1,8 @@
+.env
+.gitignore
+.git/
+docs/
+node_modules/
+tests/
+rsa_pub.pem
+rsa_priv.pem
