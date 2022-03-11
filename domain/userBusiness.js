@@ -7,8 +7,7 @@ const createNewUser = async (newUser) => {
   if (duplicate) return null;
 
   newUser = Usuario.build({
-    ...newUser,
-    llave_temporal: "llavetemporal" + newUser.nombre
+    ...newUser
   });
 
   return newUser.save();
