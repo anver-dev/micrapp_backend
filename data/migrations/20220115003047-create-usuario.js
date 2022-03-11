@@ -23,9 +23,6 @@ module.exports = {
       email: {
         type: Sequelize.STRING
       },
-      llave_temporal: {
-        type: Sequelize.STRING
-      },
       id_rol: {
         type: Sequelize.INTEGER
       },

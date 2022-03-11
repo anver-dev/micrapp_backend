@@ -49,7 +49,6 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: true,
       defaultValue: 0
     },
-    llave_temporal: DataTypes.TEXT,
     fecha_registro: {
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,

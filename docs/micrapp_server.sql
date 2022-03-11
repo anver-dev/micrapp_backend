@@ -117,7 +117,6 @@ CREATE TABLE `usuario` (
   `apellido_materno` text DEFAULT NULL,
   `contrasena` text NOT NULL,
   `email` text NOT NULL,
-  `llave_temporal` text NOT NULL,
   `fecha_registro` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

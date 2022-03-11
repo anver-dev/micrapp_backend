@@ -1,5 +1,6 @@
 .env
 .gitignore
+.git/
 docs/
 node_modules/
 tests/
