@@ -46,7 +46,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     id_rol: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
+      defaultValue: 0
     },
     llave_temporal: DataTypes.TEXT,
     fecha_registro: {
