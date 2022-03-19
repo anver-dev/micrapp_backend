@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 30-01-2022 a las 22:27:24
--- Versión del servidor: 10.4.17-MariaDB
--- Versión de PHP: 8.0.1
+-- Tiempo de generación: 19-03-2022 a las 02:59:20
+-- Versión del servidor: 10.4.22-MariaDB
+-- Versión de PHP: 8.1.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `micrapp_server`
+-- Base de datos: `micrapp_server_tests`
 --
 
 -- --------------------------------------------------------
@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `nivel_acceso` (
   `id_nivel_acceso` int(11) NOT NULL,
-  `descripcion` enum('Acceso completo','Crear reportes','Ver reportes','Pedir ayuda','Brindar ayuda') NOT NULL
+  `descripcion` enum('Acceso completo','Crear reportes','Ver reportes','Pedir ayuda','Brindar ayuda') DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -51,12 +51,23 @@ INSERT INTO `nivel_acceso` (`id_nivel_acceso`, `descripcion`) VALUES
 
 CREATE TABLE `permiso` (
   `id_permiso` int(11) NOT NULL,
-  `permiso` varchar(50) NOT NULL,
-  `descripcion` text NOT NULL,
-  `auth` varchar(50) NOT NULL,
-  `id_nivel_acceso` int(11) NOT NULL,
-  `fecha_registro` timestamp NOT NULL DEFAULT current_timestamp()
+  `permiso` varchar(255) DEFAULT NULL,
+  `descripcion` text DEFAULT NULL,
+  `auth` varchar(255) DEFAULT NULL,
+  `id_nivel_acceso` int(11) DEFAULT NULL,
+  `fecha_registro` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `permiso`
+--
+
+INSERT INTO `permiso` (`id_permiso`, `permiso`, `descripcion`, `auth`, `id_nivel_acceso`) VALUES
+(1, 'Adminintrador', 'Puede hacer todo en la base de datos, ver y crear reportes, dar y pedir ayuda', '', 1),
+(2, 'Primario empleado', 'Puede crear los reportes de incidencias', '', 2),
+(3, 'Primario empleado', 'Puede brindar ayuda', '', 5),
+(4, 'Primario empleado', 'Puede pedir ayuda', '', 4),
+(5, 'Secundario general', 'Puede pedir ayuda', '', 4);
 
 -- --------------------------------------------------------
 
@@ -66,11 +77,20 @@ CREATE TABLE `permiso` (
 
 CREATE TABLE `rol` (
   `id_rol` int(11) NOT NULL,
-  `rol` varchar(50) NOT NULL,
-  `descripcion` text NOT NULL,
-  `id_usuario` int(11) NOT NULL,
-  `fecha_registro` timestamp NOT NULL DEFAULT current_timestamp()
+  `rol` varchar(255) DEFAULT NULL,
+  `descripcion` text DEFAULT NULL,
+  `fecha_registro` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `rol`
+--
+
+INSERT INTO `rol` (`id_rol`, `rol`, `descripcion`) VALUES
+(1, 'Primario', 'Administrador'),
+(2, 'Primario', 'Sólo hace el trabajo de ayudar a las personas'),
+(3, 'Sedundario', 'Puede ver su perfil y pedir ayuda'),
+(4, 'Invitado', 'Sólo puede pedir ayuda');
 
 -- --------------------------------------------------------
 
@@ -83,26 +103,17 @@ CREATE TABLE `rol_permiso` (
   `id_permiso` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
-
 --
--- Estructura de tabla para la tabla `SequelizeMeta`
+-- Volcado de datos para la tabla `rol_permiso`
 --
 
-CREATE TABLE `SequelizeMeta` (
-  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Volcado de datos para la tabla `SequelizeMeta`
---
-
-INSERT INTO `SequelizeMeta` (`name`) VALUES
-('20220115003047-create-usuario.js'),
-('20220115003058-create-nivel-acceso.js'),
-('20220115003238-create-rol.js'),
-('20220115003253-create-permiso.js'),
-('20220115003318-create-rol-permiso.js');
+INSERT INTO `rol_permiso` (`id_rol`, `id_permiso`) VALUES
+(1, 1),
+(2, 2),
+(2, 3),
+(2, 4),
+(3, 5),
+(4, 5);
 
 -- --------------------------------------------------------
 
@@ -112,12 +123,14 @@ INSERT INTO `SequelizeMeta` (`name`) VALUES
 
 CREATE TABLE `usuario` (
   `id_usuario` int(11) NOT NULL,
-  `nombre` text NOT NULL,
-  `apellido_paterno` text NOT NULL,
+  `nombre` text DEFAULT NULL,
+  `apellido_paterno` text DEFAULT NULL,
   `apellido_materno` text DEFAULT NULL,
-  `contrasena` text NOT NULL,
-  `email` text NOT NULL,
-  `fecha_registro` timestamp NOT NULL DEFAULT current_timestamp()
+  `contrasena` text DEFAULT NULL,
+  `email` text DEFAULT NULL,
+  `id_rol` int(11) DEFAULT NULL,
+  `llave_temporal` text DEFAULT NULL,
+  `fecha_registro` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -135,34 +148,28 @@ ALTER TABLE `nivel_acceso`
 --
 ALTER TABLE `permiso`
   ADD PRIMARY KEY (`id_permiso`),
-  ADD KEY `nivelacceso_permiso_fk` (`id_nivel_acceso`);
+  ADD KEY `id_nivel_acceso` (`id_nivel_acceso`);
 
 --
 -- Indices de la tabla `rol`
 --
 ALTER TABLE `rol`
-  ADD PRIMARY KEY (`id_rol`),
-  ADD KEY `rol_usuario_fk` (`id_usuario`);
+  ADD PRIMARY KEY (`id_rol`);
 
 --
 -- Indices de la tabla `rol_permiso`
 --
 ALTER TABLE `rol_permiso`
   ADD PRIMARY KEY (`id_rol`,`id_permiso`),
-  ADD KEY `permiso_fk` (`id_permiso`);
-
---
--- Indices de la tabla `SequelizeMeta`
---
-ALTER TABLE `SequelizeMeta`
-  ADD PRIMARY KEY (`name`),
-  ADD UNIQUE KEY `name` (`name`);
+  ADD UNIQUE KEY `rol_permiso_id_rol_id_permiso_unique` (`id_rol`,`id_permiso`),
+  ADD KEY `id_permiso` (`id_permiso`);
 
 --
 -- Indices de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  ADD PRIMARY KEY (`id_usuario`);
+  ADD PRIMARY KEY (`id_usuario`),
+  ADD KEY `id_rol` (`id_rol`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -178,13 +185,13 @@ ALTER TABLE `nivel_acceso`
 -- AUTO_INCREMENT de la tabla `permiso`
 --
 ALTER TABLE `permiso`
-  MODIFY `id_permiso` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_permiso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `rol`
 --
 ALTER TABLE `rol`
-  MODIFY `id_rol` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_rol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
@@ -200,20 +207,20 @@ ALTER TABLE `usuario`
 -- Filtros para la tabla `permiso`
 --
 ALTER TABLE `permiso`
-  ADD CONSTRAINT `nivelacceso_permiso_fk` FOREIGN KEY (`id_nivel_acceso`) REFERENCES `nivel_acceso` (`id_nivel_acceso`);
-
---
--- Filtros para la tabla `rol`
---
-ALTER TABLE `rol`
-  ADD CONSTRAINT `rol_usuario_fk` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`);
+  ADD CONSTRAINT `fk_permiso_nivel_acceso` FOREIGN KEY (`id_nivel_acceso`) REFERENCES `nivel_acceso` (`id_nivel_acceso`);
 
 --
 -- Filtros para la tabla `rol_permiso`
 --
 ALTER TABLE `rol_permiso`
-  ADD CONSTRAINT `permiso_fk` FOREIGN KEY (`id_permiso`) REFERENCES `permiso` (`id_permiso`),
-  ADD CONSTRAINT `rol_fk` FOREIGN KEY (`id_rol`) REFERENCES `rol` (`id_rol`);
+  ADD CONSTRAINT `fk_rol_permiso_1` FOREIGN KEY (`id_rol`) REFERENCES `rol` (`id_rol`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_rol_permiso_2` FOREIGN KEY (`id_permiso`) REFERENCES `permiso` (`id_permiso`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `usuario`
+--
+ALTER TABLE `usuario`
+  ADD CONSTRAINT `fk_usuario_rol` FOREIGN KEY (`id_rol`) REFERENCES `rol` (`id_rol`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
