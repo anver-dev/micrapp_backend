@@ -1,4 +1,4 @@
-version: '1'
+version: '2.2'
 services:
   micrapp_backend:
       build: .
@@ -10,7 +10,7 @@ services:
       tty: true
       stdin_open: true
       depends_on:
-      - mysql
+      - micrapp_db
       environment:
         DB_USERNAME: admin
         DB_PASSWORD: 4dmin1!

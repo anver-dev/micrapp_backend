@@ -25,11 +25,6 @@ $ npm start
 
 ## Instalación con Docker
 
-Ejecute el siguiente comando para crear la imagen del 
-```
-$ docker build -t micrapp_backend:latest .
-```
-
 Modifique el archivo [docker-compose.yaml](docker-compose.yaml) para poder llenar los datos necesarios para crear la base de datos y conectarla con la API.
 
 Ejecute el siguiente comando para 
